@@ -4,7 +4,7 @@
 % Autor:        Ackermann Pascal
 % Beginndatum:  08.04.2015
 % Enddatum:     **.**.2015
-% Version:      5.0
+% Version:      6.0
 %**************************************************************************
 % Das folgende m-File führt eine komplette Reglerdimensonierung nach 
 % Professor Zellweger's Phasengangmethode durch. Als Eingangsparameter
@@ -34,10 +34,11 @@
 %                       Ver. 05:angle() und abs() Funktionen werden durch
 %                       eigene ersetzt. Für Strecke: phase_S(), ampl_S()
 %                       Für PI-Regler: phase_Pi, ampl_Pi 
+%                       Ver. 06: Eigene Funktionen phase_S(), ampl_S(),
+%                       phase_Pi(),ampl_Pi() werden durch angle() und abs()
+%                       ersetzt. Einbindung des PID-Reglers, 
+%                       Punktsuche mittels Intervallschachtelung
 %
-%Vermerk PiRegler.m: Michael Bos hat für den Fehlerfall, dass zwei Punkte für wpi oder
-%Wd gefunden wurden eine Optimierung gefunden!!! Anpassen !!!!
-%gefunden wurde
 %
 %Test Aufruf:
 
@@ -90,6 +91,10 @@ function[Gr] = phasengangmethode(Tu,Tg,k,typ,phir)
     % PI Regler ************************************************************
    if (typ==1)
        [Gr] = PiRegler( Gs,w,phir,k,T );
+   end
+    % PID Regler ***********************************************************
+   if (typ==2)
+       [Gr] = PidRegler(Gs,w,phir,k,T);
    end
     
 end
