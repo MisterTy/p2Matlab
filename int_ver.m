@@ -7,27 +7,30 @@
 %
 % Übergabeparameter: - Phasengang in Form einer Liste
 %                    - Gesuchte Phase 
-% Rückgabeparameter: - Index der Liste
+% Rückgabeparameter: - Linke und Rechter Rand , welche den gesuchten Index
+%                      eingrenzen
 %
 % Autor:             Michael Bos
 % Datum:             22.04.2015
 %**************************************************************************
-function [ind] =  int_ver(phase,phi)
+function [left, right] =  int_ver(phase,phi)
 
 right = length(phase);         % Länge der Liste ist der rechte Rand  
 left = 1;                      % Linke Rand beginnt bei Indices 1
 
-for n=1:1:15
-   
+while(right-left ~=1)           % Iteration bis Linker und Rechter Rand gesuchten Wert eingrenzen
+                                % Bemerkung: gesuchter Index liegt zwischen
+                                % beiden Ränder
+    
     ind=floor((right+left)/2);  % Hälfte der Anzahl Indices
     curr_phase = phase(ind);    % Phase bei der Hälfte
     
     if(curr_phase>phi)
-        left = (right+left)/2;   % Linker Rand auf gemittelten Wert setzen
-        right = right;
+        left = floor(right+left)/2;   % Linker Rand auf gemittelten Wert setzen
+        right = right;                % Rechter Rand bleibt
     else
-        right = (left+right)/2;  % Rechter Rand auf gemittelten Wert setzen  
-        left = left;
+        right = floor(left+right)/2;  % Rechter Rand auf gemittelten Wert setzen  
+        left = left;                  % Linker Rand bleibt
     end
 end
 end

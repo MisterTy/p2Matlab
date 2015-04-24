@@ -38,8 +38,9 @@
 %                       phase_Pi(),ampl_Pi() werden durch angle() und abs()
 %                       ersetzt. Einbindung des PID-Reglers, 
 %                       Punktsuche mittels Intervallschachtelung
-%
-%
+%                       Ver. 07: Anpassung Intervallverschachtelung mit 
+%                       Abbruchbedingung Rechterrand - Linkerrand = 1
+
 %Test Aufruf:
 
  %Präsentation: phasengangmethode(2.8,20.56,0.5,1,pi/4) ;
@@ -64,7 +65,7 @@ function[Gr] = phasengangmethode(Tu,Tg,k,typ,phir)
     Tmin=min(T(1:n));                        %ermittle min von T1 bis Tn
     wmin= 1/(Tmax*10);
     wmax= 1/(Tmin/10);
-    w = logspace(log10(wmin),log10(wmax),1000);
+    w = logspace(log10(wmin),log10(wmax),10000);
     
       
     % Je nach Ordnung wird die Übertragungsfunktion der Strecke gebildet

@@ -10,8 +10,8 @@ function [Gr] = PiRegler( Gs,w,phir,k,T )
         end
     end
     
-    ind = int_ver(phi_s,-pi/2);
-    wpi = w(ind);
+    [ind_left,ind_right] = int_ver(phi_s,-pi/2);    %Berechnet die beiden Indizien die ges. Index einschliessen
+    wpi = (w(ind_left)+w(ind_right))/2;             % Weil Wpi irgendwo zwischen W[Left] und W[Right] liegt nehmen wir den arithm Mittelwert
     Tn=1/wpi
     Grp = (1 + (1./(Tn.*j*w)));
     
