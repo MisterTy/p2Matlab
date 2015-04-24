@@ -27,19 +27,26 @@ function [Gr] = PiRegler( Gs,w,phir,k,T )
     [ind_left,ind_right] = int_ver(phi_O,-pi+phir);    %Berechnet die beiden Indizien die ges. wD einschliessen
     wD = (w(ind_left)+w(ind_right))/2;                 %Weil WD irgendwo zwischen W[Left] und W[Right] liegt nehmen wir den arithm Mittelwert
     
-% Provisorische Übertragungsfunktion mit wD
+    % Provisorische Übertragungsfunktion mit wD
     Grp_wd = 1*(1+1/(j*wD*Tn));
     
-    % KR bestimmen 
-    ampl_s = abs(Gs);                       %Amplitudengang Strecke
-    ampl_rprov = abs(Grp_wd);               %Amplitudengang des prov. Pi-Reglers mit Kr=1
-    ampl_O = ampl_s.*ampl_rprov;            %Amplitudengangs des offenen Regelkreises
+    % G(s) Strecke mit Wd
+    % Je nach Ordnung wird die Übertragungsfunktion der Strecke gebildet
+    G_str_wd=1;                                %Initialisiere Gs
+    for y=1:1:length(T)                 %Berechne Übertragungsfunktion    
+        G_str_wd = G_str_wd.*(1./(1+1j.*wD.*T(y)));
+    end
+    G_str_wd=k*G_str_wd;                            %Vervollständige mit Verstärkung 
     
-    amplOwd = 20*log10((ampl_O(ind_left)+ampl_O(ind_right))/2);    %Amplitude bei wD
-    KrdB=-amplOwd;                          %Reglerverstärkung in DB
-    Kr=10^(KrdB/20)                         %Reglerverstärkung in DB
-    Gr=Kr*(1+1./(1j.*w.*Tn));               %Übertragungsfunktion Regler
+    % Offener Regelkreis 
+    GOffwd=Grp_wd*G_str_wd; 
 
+    % Reglerverstärkung in DB
+    amplOffwd=20*log10(abs(GOffwd));
+    KrdB=-amplOffwd;                                             
+    Kr=10^(KrdB/20)                   
+    Gr=Kr*(1+1./(1j.*w.*Tn));               %Übertragungsfunktion Regler
+    
 end
 
 % Ende File ---------------------------------------------------------------
