@@ -43,30 +43,6 @@ end
     
 phi_s_m = (phi_s(copy_ind)-phi_s(ind))/(w_next_ind-wpid);
 
-% -------------------------------------------------------------------------
-% Alte Lösungsvariante zur Berechnung von wpid
-
-% differ=abs(phi_s+3*pi/4);                %Suchen Index bei min Abweichung
-% diffmin= min(differ);
-%              
-% indices=find(differ == diffmin); 
-% 
-%     if length(indices)>1             %Falls zwei Punkte gleichen Abstand
-%         indices= indices(2);         % Vermerk für Pascal!!!!!!!!
-%                                      % indices(2) nehmen weil unten
-%                                      % indices+1
-%     end
-%   
-%  wpid= w(indices);                   % wpid bei -135° 
-%  
-%  % Nächsten Punkt zur Bildung der Tangente 
-%  diffmin_next= differ(indices+1);    
-%  w_next_ind = w(indices+1);
-%  
-%  %Steigung der Tangente bei Wpid
-%  phi_s_m = -(diffmin_next-diffmin)/(w_next_ind-wpid);
-%--------------------------------------------------------------------------
-
 % Berechnung Beta und Tnk/Tvk ---------------------------------------------
      
  Ko = -0.5 - phi_s_m;
@@ -101,23 +77,6 @@ phi_s_m = (phi_s(copy_ind)-phi_s(ind))/(w_next_ind-wpid);
  
  indWd = int_ver(phi_Go,-pi+phir);  % Listenindex, wo sich wD befindet
  wD    = w(indWd);
- 
-% -------------------------------------------------------------------------
-% Alte Lösungsvariante zur Berechnung von wD
-%  % Bei (-180° + Phasenrand) befindet sich Wd, weshalb Punkt von Phase
-%  % offener Regelkreis suchen, der diesem Wert am nächsten ist.
-%  differWd = abs(phi_Go -(-pi + phir));            
-%  diffminWd = min(differWd);    
-%  
-%  indWd=find(differWd == diffminWd); 
-% 
-%  %Falls zwei Punkte gleichen Abstand
-%     if length(indWd)>1           
-%         indWd= indWd(2);         
-%     end
-%   
-%  wD= w(indWd);
-%--------------------------------------------------------------------------
  
  % Krk bestimmen-----------------------------------------------------------
  % G(s) Strecke mit Wd

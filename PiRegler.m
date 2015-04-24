@@ -12,19 +12,7 @@ function [Gr] = PiRegler( Gs,w,phir,k,T )
     
     ind = int_ver(phi_s,-pi/2);
     wpi = w(ind);
-%--------------------------------------------------------------------------
-% Alte Lösungsvariante
-%     abw=abs(phi_s+pi/2);                %Suchen Index bei min Abweichung
-%     abwmin= min(abw);
-%     indices=find(abw == abwmin); 
-%     if length(indices)>1                 %Falls zwei Punkte gleichen Abstand
-%         indices= indices(1);
-%     end
-%     
-%     wpi= w(indices);
-%--------------------------------------------------------------------------
-
-    Tn=1/wpi;
+    Tn=1/wpi
     Grp = (1 + (1./(Tn.*j*w)));
     
     %Durchtrittspunkt wD bestimmen
@@ -39,19 +27,6 @@ function [Gr] = PiRegler( Gs,w,phir,k,T )
     indWd = int_ver(phi_O,-pi+phir);
     wD = w(indWd);
     
-% -------------------------------------------------------------------------
-% Alte Lösungsvariante zur Berechnung von wD
-%     abw=abs(phi_O+(+pi-phir));          %Suchen Index bei min Abweichung
-%     abwmin= min(abw);
-%     indices=find(abw == abwmin); 
-%    
-%     if length(indices)>1                %Falls zwei Punkte gleichen Abstand
-%         indices= indices(1);
-%     end
-%     
-%     wD = w(indices);
-% -------------------------------------------------------------------------
-    
 % Provisorische Übertragungsfunktion mit wD
     Grp_wd = 1*(1+1/(j*wD*Tn));
     
@@ -61,17 +36,9 @@ function [Gr] = PiRegler( Gs,w,phir,k,T )
     ampl_O = ampl_s.*ampl_rprov;         %Amplitudengangs des offenen Regelkreises
     amplOwd = 20*log10(ampl_O(indWd));   %Amplitude bei wD
     KrdB=-amplOwd;                       %Reglerverstärkung in DB
-    Kr=10^(KrdB/20);                     %Reglerverstärkung in DB
+    Kr=10^(KrdB/20)                      %Reglerverstärkung in DB
     Gr=Kr*(1+1./(1j.*w.*Tn));            %Übertragungsfunktion Regler
-    
-%     %% Plot Frequenzgang des offenen Regelkreises
-%     phi_Op=phi_O/pi*180;            %Umrechnung in Grad für Plot
-%     ampl_Op=20*log10(ampl_O);       %Umrechnung in dB für Plot
-%     figure(4)
-%     subplot(211),semilogx(w,ampl_Op),xlabel('w/log'),ylabel('Ampl[dB]');
-%     title('Frequenzgang offenen Regelkreises')
-%     subplot(212),semilogx(w,phi_Op),xlabel('w/log'),ylabel('Phase[°]');
-    
+
 end
 
 % Ende File ---------------------------------------------------------------

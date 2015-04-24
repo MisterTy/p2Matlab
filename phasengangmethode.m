@@ -72,21 +72,7 @@ function[Gr] = phasengangmethode(Tu,Tg,k,typ,phir)
     for y=1:1:length(T)                 %Berechne Übertragungsfunktion    
         Gs = Gs.*(1./(1+1j.*w.*T(y)));
     end
-    Gs=k*Gs;                            %Vervollständige mit Verstärkung k
-    
-    %Plot Frequenzgang der Strecke
-    phi_s=phase_S(w,T);
-    for y=1:1:length(phi_s)                     % Entfernt Sprung bei -pi
-        if phi_s(y) > 0
-            phi_s(y) = -2*pi+phi_s(y); 
-        end
-    end
-    phi_s=phi_s/pi*180;
-    ampl_s=20*log10(ampl_S(w,T,k)); 
-    figure(1)
-    subplot(211),semilogx(w,ampl_s),xlabel('w/log'),ylabel('Ampl[dB]');
-    title('Frequenzgang Strecke')
-    subplot(212),semilogx(w,phi_s),xlabel('w/log'),ylabel('Phase[°]');
+    Gs=k*Gs;                            %Vervollständige mit Verstärkung 
     
     % PI Regler ************************************************************
    if (typ==1)
