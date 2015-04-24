@@ -28,24 +28,20 @@ for m=1:1:length(phi_s)                 % Entfernt Sprung bei -pi
 end
     
 % Liefert die Indices der Liste, wo sich phi befindet
-ind = int_ver(phi_s,-3*pi/4);           
-wpid = w(ind);
+[ind_left,ind_right] = int_ver(phi_s,-3*pi/4);          %Berechnet die beiden Indizien die ges. wpid einschliessen
+wpid=(w(ind_left)+w(ind_right))/2;                      %Weil WpiD irgendwo zwischen W[Left] und W[Right] liegt nehmen wir den arithm Mittelwert
 
-% Nächster Punkt zur Bildung der Steigungstangente
-copy_ind = ind+1;
-w_next_ind = w(copy_ind);
-
-% Überprüfen, dass die beiden Omegas nicht gleich sind
-while(w_next_ind == wpid)
-    copy_ind= copy_ind+1;
-    w_next_ind = w(copy_ind);
-end
+% % Überprüfen, dass die beiden Omegas nicht gleich sind
+% while(w_next_ind == wpid)
+%     copy_ind= copy_ind+1;
+%     w_next_ind = w(copy_ind);
+% end
     
-phi_s_m = (phi_s(copy_ind)-phi_s(ind))/(w_next_ind-wpid);
+phi_s_m = (phi_s(ind_right)-phi_s(ind_left))/(w(ind_right)-w(ind_left)); %Steigung = dphis/dw
 
 % Berechnung Beta und Tnk/Tvk ---------------------------------------------
      
- Ko = -0.5 - phi_s_m;
+ Ko = -0.5 - (wpid*phi_s_m);
          
         if(Ko>1)                     
               beta = 1;
@@ -80,7 +76,14 @@ phi_s_m = (phi_s(copy_ind)-phi_s(ind))/(w_next_ind-wpid);
  
  % Krk bestimmen-----------------------------------------------------------
  % G(s) Strecke mit Wd
- G_str_wd = k/(((1+1j*wD.*T(1)).*(1+1j*wD.*T(2)).*(1+1j*wD.*T(3)).*(1+1j*wD.*T(4)).*(1+1j*wD.*T(5)).*(1+1j*wD.*T(6)).*(1+1j*wD.*T(7)).*(1+1j*wD.*T(8)))); 
+     % Je nach Ordnung wird die Übertragungsfunktion der Strecke gebildet
+    Gs=1;                                %Initialisiere Gs
+    for y=1:1:length(T)                 %Berechne Übertragungsfunktion    
+        Gs = Gs.*(1./(1+1j.*wD.*T(y)));
+    end
+    Gs=k*Gs;                            %Vervollständige mit Verstärkung 
+ 
+ %G_str_wd = k/(((1+1j*wD.*T(1)).*(1+1j*wD.*T(2)).*(1+1j*wD.*T(3)).*(1+1j*wD.*T(4)).*(1+1j*wD.*T(5)).*(1+1j*wD.*T(6)).*(1+1j*wD.*T(7)).*(1+1j*wD.*T(8)))); 
  
  % G(s) Regler mit Wd
  G_reg_wd = Krk*(1+(1/1j*wD*Tnk))*(1+1j*wD*Tvk)*(1/(1+1j*wD*Tp));    
