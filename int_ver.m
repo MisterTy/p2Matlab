@@ -26,10 +26,10 @@ while(right-left ~=1)           % Iteration bis Linker und Rechter Rand gesuchte
     curr_phase = phase(ind);    % Phase bei der Hälfte
     
     if(curr_phase>phi)
-        left = floor(right+left)/2;   % Linker Rand auf gemittelten Wert setzen
+        left = floor((right+left)/2);   % Linker Rand auf gemittelten Wert setzen
         right = right;                % Rechter Rand bleibt
     else
-        right = floor(left+right)/2;  % Rechter Rand auf gemittelten Wert setzen  
+        right = floor((left+right)/2);  % Rechter Rand auf gemittelten Wert setzen  
         left = left;                  % Linker Rand bleibt
     end
 end

@@ -10,8 +10,8 @@ function [Gr] = PiRegler( Gs,w,phir,k,T )
         end
     end
     
-    [ind_left,ind_right] = int_ver(phi_s,-pi/2);    %Berechnet die beiden Indizien die ges. Index einschliessen
-    wpi = (w(ind_left)+w(ind_right))/2;             % Weil Wpi irgendwo zwischen W[Left] und W[Right] liegt nehmen wir den arithm Mittelwert
+    [ind_left,ind_right] = int_ver(phi_s,-pi/2);    %Berechnet die beiden Indizien die ges. wpi einschliessen
+    wpi = (w(ind_left)+w(ind_right))/2;             %Weil Wpi irgendwo zwischen W[Left] und W[Right] liegt nehmen wir den arithm Mittelwert
     Tn=1/wpi
     Grp = (1 + (1./(Tn.*j*w)));
     
@@ -24,20 +24,21 @@ function [Gr] = PiRegler( Gs,w,phir,k,T )
         end
     end
     
-    indWd = int_ver(phi_O,-pi+phir);
-    wD = w(indWd);
+    [ind_left,ind_right] = int_ver(phi_O,-pi+phir);    %Berechnet die beiden Indizien die ges. wD einschliessen
+    wD = (w(ind_left)+w(ind_right))/2;                 %Weil WD irgendwo zwischen W[Left] und W[Right] liegt nehmen wir den arithm Mittelwert
     
 % Provisorische Übertragungsfunktion mit wD
     Grp_wd = 1*(1+1/(j*wD*Tn));
     
     % KR bestimmen 
-    ampl_s = abs(Gs);                    %Amplitudengang Strecke
-    ampl_rprov = abs(Grp_wd);            %Amplitudengang des prov. Pi-Reglers mit Kr=1
-    ampl_O = ampl_s.*ampl_rprov;         %Amplitudengangs des offenen Regelkreises
-    amplOwd = 20*log10(ampl_O(indWd));   %Amplitude bei wD
-    KrdB=-amplOwd;                       %Reglerverstärkung in DB
-    Kr=10^(KrdB/20)                      %Reglerverstärkung in DB
-    Gr=Kr*(1+1./(1j.*w.*Tn));            %Übertragungsfunktion Regler
+    ampl_s = abs(Gs);                       %Amplitudengang Strecke
+    ampl_rprov = abs(Grp_wd);               %Amplitudengang des prov. Pi-Reglers mit Kr=1
+    ampl_O = ampl_s.*ampl_rprov;            %Amplitudengangs des offenen Regelkreises
+    
+    amplOwd = 20*log10((ampl_O(ind_left)+ampl_O(ind_right))/2);    %Amplitude bei wD
+    KrdB=-amplOwd;                          %Reglerverstärkung in DB
+    Kr=10^(KrdB/20)                         %Reglerverstärkung in DB
+    Gr=Kr*(1+1./(1j.*w.*Tn));               %Übertragungsfunktion Regler
 
 end
 
