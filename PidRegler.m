@@ -46,7 +46,7 @@ phi_s_m = (phi_s(ind_right)-phi_s(ind_left))/(w(ind_right)-w(ind_left)); %Steigu
         if(Ko>1)                     
               beta = 1;
         else    
-              % syms b
+              %syms b
               %beta = solve(0.5+ wpid*phi_s_m +(2*b/(1+b^2)),b);
               diskr =((4-4*-(0.5+wpid*phi_s_m*(0.5+wpid*phi_s_m)))^(1/2));
               beta1= ( -(-2)+ diskr)/(2*-(0.5+wpid*phi_s_m));
@@ -81,9 +81,9 @@ phi_s_m = (phi_s(ind_right)-phi_s(ind_left))/(w(ind_right)-w(ind_left)); %Steigu
     for y=1:1:length(T)                 %Berechne Übertragungsfunktion    
         Gs = Gs.*(1./(1+1j.*wD.*T(y)));
     end
-    Gs=k*Gs;                            %Vervollständige mit Verstärkung 
+    G_str_wd=k*Gs;                            %Vervollständige mit Verstärkung 
  
- %G_str_wd = k/(((1+1j*wD.*T(1)).*(1+1j*wD.*T(2)).*(1+1j*wD.*T(3)).*(1+1j*wD.*T(4)).*(1+1j*wD.*T(5)).*(1+1j*wD.*T(6)).*(1+1j*wD.*T(7)).*(1+1j*wD.*T(8)))); 
+ %G_str_wd = k/(((1+1j*wD*T(1))*(1+1j*wD*T(2))*(1+1j*wD*T(3))*(1+1j*wD*T(4))*(1+1j*wD*T(5))*(1+1j*wD*T(6))*(1+1j*wD*T(7))*(1+1j*wD*T(8)))); 
  
  % G(s) Regler mit Wd
  G_reg_wd = Krk*(1+(1/1j*wD*Tnk))*(1+1j*wD*Tvk)*(1/(1+1j*wD*Tp));    
@@ -98,7 +98,7 @@ phi_s_m = (phi_s(ind_right)-phi_s(ind_left))/(w(ind_right)-w(ind_left)); %Steigu
  Gr= Krk.*(1+(1./1j*w.*Tnk)).*(1+1j*w.*Tvk).*(1./(1+1j*w.*Tp));
  
  % Umrechnung in Reglerkonform
- Tv = (Tnk*Tvk)/(Tnk+Tvk+1);
+ Tv = (Tnk*Tvk)/(Tnk+Tvk-Tp)-Tp;
  Tn = (Tnk+Tvk-Tp);
  Kr = (Krk*(Tnk+Tvk-Tp))/Tnk;
  
