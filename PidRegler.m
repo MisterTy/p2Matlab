@@ -77,17 +77,17 @@ phi_s_m = (phi_s(ind_right)-phi_s(ind_left))/(w(ind_right)-w(ind_left)); %Steigu
  % Krk bestimmen-----------------------------------------------------------
  % G(s) Strecke mit Wd
      % Je nach Ordnung wird die Übertragungsfunktion der Strecke gebildet
-    Gs=1;                                %Initialisiere Gs
+    Gs=1;                               %Initialisiere Gs
     for y=1:1:length(T)                 %Berechne Übertragungsfunktion    
         Gs = Gs.*(1./(1+1j.*wD.*T(y)));
     end
-    G_str_wd=k*Gs;                            %Vervollständige mit Verstärkung 
- 
- %G_str_wd = k/(((1+1j*wD*T(1))*(1+1j*wD*T(2))*(1+1j*wD*T(3))*(1+1j*wD*T(4))*(1+1j*wD*T(5))*(1+1j*wD*T(6))*(1+1j*wD*T(7))*(1+1j*wD*T(8)))); 
+    G_str_wd=k*Gs;                      %Vervollständige mit Verstärkung 
  
  % G(s) Regler mit Wd
- G_reg_wd = Krk*(1+(1/1j*wD*Tnk))*(1+1j*wD*Tvk)*(1/(1+1j*wD*Tp));    
- 
+% G_reg_wd = Krk*(1+(1/1j*wD*Tnk))*(1+1j*wD*Tvk)*(1/(1+1j*wD*Tp));
+
+G_reg_wd = Krk * ((1+1j*wD*Tnk)/(1j*wD*Tnk))*((1+1j*wD*Tvk)/(1+1j*wD*Tp));
+
  % Offener Regelkreis 
  GOffwd=G_reg_wd*G_str_wd;        
 
