@@ -48,10 +48,10 @@ phi_s_m = (phi_s(ind_right)-phi_s(ind_left))/(w(ind_right)-w(ind_left)); %Steigu
         else    
               %syms b
               %beta = solve(0.5+ wpid*phi_s_m +(2*b/(1+b^2)),b);
-              diskr =((4-4*-(0.5+wpid*phi_s_m*(0.5+wpid*phi_s_m)))^(1/2));
-              beta1= ( -(-2)+ diskr)/(2*-(0.5+wpid*phi_s_m));
-              beta2= ( -(-2)- diskr)/(2*-(0.5+wpid*phi_s_m));
-              beta= max(beta1,beta2);
+              diskr =((4-4*(0.5+wpid*phi_s_m)*(0.5+wpid*phi_s_m)))^(1/2);
+              beta1= ( (-2)+ diskr)/(2*(0.5+wpid*phi_s_m));
+              beta2= ( (-2)- diskr)/(2*(0.5+wpid*phi_s_m));
+              beta= min(beta1,beta2);
                
         end
 
