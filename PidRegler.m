@@ -97,6 +97,11 @@ phi_s_m = (phi_s(ind_right)-phi_s(ind_left))/(w(ind_right)-w(ind_left)); %Steigu
  Krk=10^(KrkdB/20);                    
  Gr= Krk.*(1+(1./1j*w.*Tnk)).*(1+1j*w.*Tvk).*(1./(1+1j*w.*Tp));
  
+ % Umrechnung in Reglerkonform
+ Tv = (Tnk*Tvk)/(Tnk+Tvk+1);
+ Tn = (Tnk+Tvk-Tp);
+ Kr = (Krk*(Tnk+Tvk-Tp))/Tnk;
+ 
  
 end
 
