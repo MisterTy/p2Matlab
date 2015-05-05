@@ -77,7 +77,7 @@ function[kR, Tn, Tv, Tp, kS, T] = phasengangmethode_sa(Tu,Tg,kS,typ,phir)
     Tmin=min(T(1:n));               %ermittle min von T1 bis Tn
     wmin= 1/(Tmax*10);              
     wmax= 1/(Tmin/10);
-    w = logspace(log10(wmin),log10(wmax),1000);   %w im relevanten Bereich
+    w = logspace(log10(wmin),log10(wmax),2^12);   %w im relevanten Bereich
     
       
     % Übertragungsfunktion der Strecke berechnen

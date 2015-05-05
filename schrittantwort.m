@@ -43,9 +43,8 @@ if (strcmp(typ,'Pi'))
     % Plot Schrittantwort Geschlossener Regelkreis ****************************
     
     %Berechnung fs , N
-    fs= max(w);
-    df= w(length(w))/(length(w)-1);
-    N= 2^floor(log2(1/(df*1/fs)));
+    fs= max(w);                         %Grenzfrequenz
+    N= 2^floor(log2(length(w)));        % Anzahl Punkte im Kreisfrequenz w-Array
     
     % Schrittantwort berechnen
     [y1, t] = schrittIfft(B,A,fs,N);    % Methode via ifft().
@@ -80,14 +79,21 @@ if (strcmp(typ,'Pid'))
     %Strecke
     ZaehlerPolynomB_Strecke=[kS];        
     N=1;                               %Initialisiere N
-    syms s;
-    for y=1:1:length(T)                 %ohne kS
-        N = N*(1+s*T(y));
+    %syms s;
+    %for y=1:1:length(T)                 %ohne kS
+    %    N = N*(1+s*T(y));
+    %end
+    for y=1:1:length(T)
+        TF(y)= zeros(1,2);
+        TF(y)= [T(y) 1]
     end
+    
+   conv(TF(1)+TF(2));
+    
     NennerPolynomA_Strecke = sym2poly(N);
     %Regler
     ZaehlerPolynomB_Regler=[kR*(Tn*Tp+Tn*Tv) kR*(Tn+Tp) kR];  
-    NennerPolynomA_Regler= [Tn*Tp Tn 0];      
+    NennerPolynomA_Regler= [Tn*Tp Tn 0];  % Keine Konstante daher 0    
     % Übertragungsfunktion Geschlossener Regelkreis ***************************
 
     B = conv(ZaehlerPolynomB_Strecke, ZaehlerPolynomB_Regler);
@@ -98,9 +104,8 @@ if (strcmp(typ,'Pid'))
     
     %Berechnung fs , N
 
-    fs= max(w);
-    df= w(length(w))/(length(w)-1);
-    N= 2^floor(log2(1/(df*1/fs)));
+    fs= max(w);                         %Grenzfrequenz
+    N= 2^floor(log2(length(w)));        % Anzahl Punkte im Kreisfrequenz w-Array
     
     % Schrittantwort berechnen
     [y1, t] = schrittIfft(B,A,fs,N);    % Methode via ifft().
