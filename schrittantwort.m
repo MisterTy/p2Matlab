@@ -25,15 +25,27 @@ if (strcmp(typ,'Pi'))
     %%Mit FFT
     %Strecke
     ZaehlerPolynomB_Strecke=kS;        
-    N=1;                               %Initialisiere N
-    syms s;
-    for y=1:1:length(T)                 %ohne kS
-        N = N*(1+s*T(y));
+%     N=1;                               %Initialisiere N
+%     syms s;
+%     for y=1:1:length(T)                 %ohne kS
+%         N = N*(1+s*T(y));
+%     end
+
+% Berechnung des Nennerpolynoms 
+    N = [T(1),1];               % Initialisiere N = (sT1 +1) für conv
+    for y=2:1:length(T)
+          
+          if(T(y)==0)           
+              break
+          end
+          N = conv(N,[T(y) 1]);  % Multipliziert die Terme des Nenners
     end
-    NennerPolynomA_Strecke = sym2poly(N);
+    
+    
+    NennerPolynomA_Strecke = N; %sym2poly(N);
     %Regler
     ZaehlerPolynomB_Regler=kR*[Tn 1];  
-    NennerPolynomA_Regler= [Tn 0]      
+    NennerPolynomA_Regler= [Tn 0];      
     % Übertragungsfunktion Geschlossener Regelkreis ***************************
 
     B = conv(ZaehlerPolynomB_Strecke, ZaehlerPolynomB_Regler);
@@ -78,19 +90,18 @@ if (strcmp(typ,'Pid'))
     %%Mit FFT
     %Strecke
     ZaehlerPolynomB_Strecke=[kS];        
-    N=1;                               %Initialisiere N
-    %syms s;
-    %for y=1:1:length(T)                 %ohne kS
-    %    N = N*(1+s*T(y));
-    %end
-    for y=1:1:length(T)
-        TF(y)= zeros(1,2);
-        TF(y)= [T(y) 1]
+
+% Berechnung des Nennerpolynoms 
+    N = [T(1),1];               % Initialisiere N = (sT1 +1) für conv
+    for y=2:1:length(T)
+          
+          if(T(y)==0)           
+              break
+          end
+          N = conv(N,[T(y) 1]);  % Multipliziert die Terme des Nenners
     end
     
-   conv(TF(1)+TF(2));
-    
-    NennerPolynomA_Strecke = sym2poly(N);
+    NennerPolynomA_Strecke = N; 
     %Regler
     ZaehlerPolynomB_Regler=[kR*(Tn*Tp+Tn*Tv) kR*(Tn+Tp) kR];  
     NennerPolynomA_Regler= [Tn*Tp Tn 0];  % Keine Konstante daher 0    

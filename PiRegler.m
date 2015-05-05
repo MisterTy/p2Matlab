@@ -24,13 +24,14 @@ function [kR, Tn, Tv, Tp] = PiRegler(Gs,w,phir,kS,T)
     phi_s=angle(Gs);                    % Phasengang Strecke
     
     for y=1:1:length(phi_s)             % Entfernt Sprung bei -pi
-        if phi_s(y) > 0                 %--> Punktsuche funktioniert sonst nicht
-            for z=y:1:length(phi_s)
-                phi_s(z) = -2*pi+phi_s(z); 
-            end
-            break
-        end
-    end
+         if phi_s(y) > 0                 %--> Punktsuche funktioniert sonst nicht
+             for z=y:1:length(phi_s)
+                 phi_s(z) = -2*pi+phi_s(z); 
+             end
+             break
+         end
+     end
+    plot(phi_s);
     
     [ind_left,ind_right] = int_ver(phi_s,-pi/2);% berechnet Indizien, die ges. wpi einschliessen
     wpi = (w(ind_left)+w(ind_right))/2;         %Weil Wpi irgendwo zwischen W[Left] und W[Right] liegt nehmen wir den arithm Mittelwert
