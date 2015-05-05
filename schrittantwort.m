@@ -32,7 +32,7 @@ if (strcmp(typ,'Pi'))
 %     end
 
 % Berechnung des Nennerpolynoms 
-    N = [T(1),1];               % Initialisiere N = (sT1 +1) für conv
+    N = [T(1),1];               % Initialisiere N = (sT1 +1) f?r conv
     for y=2:1:length(T)
           
           if(T(y)==0)           
@@ -46,7 +46,7 @@ if (strcmp(typ,'Pi'))
     %Regler
     ZaehlerPolynomB_Regler=kR*[Tn 1];  
     NennerPolynomA_Regler= [Tn 0];      
-    % Übertragungsfunktion Geschlossener Regelkreis ***************************
+    % ?bertragungsfunktion Geschlossener Regelkreis ***************************
 
     B = conv(ZaehlerPolynomB_Strecke, ZaehlerPolynomB_Regler);
     A = conv(NennerPolynomA_Strecke, NennerPolynomA_Regler);
@@ -62,7 +62,7 @@ if (strcmp(typ,'Pi'))
     [y1, t] = schrittIfft(B,A,fs,N);    % Methode via ifft().
     SchrittantwortStrecke=figure(1);
     set(SchrittantwortStrecke,  'name', 'Schrittantwort Strecke',...        % Setzt Titel des Fensters neu
-                                'numbertitle', 'off');                      % Lässt 'Figure 1' verschwinden
+                                'numbertitle', 'off');                      % L?sst 'Figure 1' verschwinden
 
     hold on;                 
     plot(t, y1,'red'),grid on
@@ -92,7 +92,7 @@ if (strcmp(typ,'Pid'))
     ZaehlerPolynomB_Strecke=[kS];        
 
 % Berechnung des Nennerpolynoms 
-    N = [T(1),1];               % Initialisiere N = (sT1 +1) für conv
+    N = [T(1),1];               % Initialisiere N = (sT1 +1) f?r conv
     for y=2:1:length(T)
           
           if(T(y)==0)           
@@ -105,7 +105,7 @@ if (strcmp(typ,'Pid'))
     %Regler
     ZaehlerPolynomB_Regler=[kR*(Tn*Tp+Tn*Tv) kR*(Tn+Tp) kR];  
     NennerPolynomA_Regler= [Tn*Tp Tn 0];  % Keine Konstante daher 0    
-    % Übertragungsfunktion Geschlossener Regelkreis ***************************
+    % ?bertragungsfunktion Geschlossener Regelkreis ***************************
 
     B = conv(ZaehlerPolynomB_Strecke, ZaehlerPolynomB_Regler);
     A = conv(NennerPolynomA_Strecke, NennerPolynomA_Regler);
@@ -122,7 +122,7 @@ if (strcmp(typ,'Pid'))
     [y1, t] = schrittIfft(B,A,fs,N);    % Methode via ifft().
     SchrittantwortStrecke=figure(1);
     set(SchrittantwortStrecke,  'name', 'Schrittantwort Strecke',...        % Setzt Titel des Fensters neu
-                                'numbertitle', 'off');                      % Lässt 'Figure 1' verschwinden
+                                'numbertitle', 'off');                      % L?sst 'Figure 1' verschwinden
 
     hold on;                 
     plot(t, y1,'red'),grid on
@@ -130,4 +130,3 @@ if (strcmp(typ,'Pid'))
     
 end
 end
-
