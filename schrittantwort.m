@@ -5,7 +5,7 @@ function [] = schrittantwort( kR, Tn, Tv, Tp, kS, T, w, typ)
 
 if (strcmp(typ,'Pi'))
     
-    %%%Mit Step
+    %%%Mit Step -----------------------------------------------------------
     
     %Strecke
     ZaehlerPolynomB_Strecke=kS;        
@@ -22,14 +22,9 @@ if (strcmp(typ,'Pi'))
     UET= (ZaehlerPolynomB_Strecke*ZaehlerPolynomB_Regler)/((NennerPolynomA_Strecke*NennerPolynomA_Regler)+(ZaehlerPolynomB_Strecke*ZaehlerPolynomB_Regler));
     step(UET);
     
-    %%Mit FFT
+    %%Mit FFT -------------------------------------------------------------
     %Strecke
     ZaehlerPolynomB_Strecke=kS;        
-%     N=1;                               %Initialisiere N
-%     syms s;
-%     for y=1:1:length(T)                 %ohne kS
-%         N = N*(1+s*T(y));
-%     end
 
 % Berechnung des Nennerpolynoms 
     N = [T(1),1];               % Initialisiere N = (sT1 +1) für conv
@@ -42,7 +37,7 @@ if (strcmp(typ,'Pi'))
     end
     
     
-    NennerPolynomA_Strecke = N; %sym2poly(N);
+    NennerPolynomA_Strecke = N; 
     %Regler
     ZaehlerPolynomB_Regler=kR*[Tn 1];  
     NennerPolynomA_Regler= [Tn 0];      

@@ -31,7 +31,6 @@ function [kR, Tn, Tv, Tp] = PiRegler(Gs,w,phir,kS,T)
              break
          end
      end
-    plot(phi_s);
     
     [ind_left,ind_right] = int_ver(phi_s,-pi/2);% berechnet Indizien, die ges. wpi einschliessen
     wpi = (w(ind_left)+w(ind_right))/2;         %Weil Wpi irgendwo zwischen W[Left] und W[Right] liegt nehmen wir den arithm Mittelwert
