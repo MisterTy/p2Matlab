@@ -29,10 +29,6 @@ if (strcmp(typ,'Pi'))
 % Berechnung des Nennerpolynoms 
     N = [T(1),1];               % Initialisiere N = (sT1 +1) f?r conv
     for y=2:1:length(T)
-          
-          if(T(y)==0)           
-              break
-          end
           N = conv(N,[T(y) 1]);  % Multipliziert die Terme des Nenners
     end
     
@@ -89,10 +85,6 @@ if (strcmp(typ,'Pid'))
 % Berechnung des Nennerpolynoms 
     N = [T(1),1];               % Initialisiere N = (sT1 +1) f?r conv
     for y=2:1:length(T)
-          
-          if(T(y)==0)           
-              break
-          end
           N = conv(N,[T(y) 1]);  % Multipliziert die Terme des Nenners
     end
     
