@@ -51,25 +51,25 @@
 
 %Test Aufruf:
                          
- %Str1(n=2):[kR, Tn, Tv, Tp]=phasengangmethode_sa(3.08,30.8,0.5,'Pi',pi/4) 
- %Str2(n=3):[kR, Tn, Tv, Tp]=phasengangmethode_sa(0.95,9,2,'Pi',pi/4) 
- %Str3(n=3):[kR, Tn, Tv, Tp]=phasengangmethode_sa(1.4e-3,7.7e-3,1,'Pi',pi/4) 
- %Str4(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa(3.45e-6,15.5e-6,5,'Pi',pi/4) 
- %Str5(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa(64.8e-3,245.2e-3,0.5,'Pi',pi/4) 
- %Str6(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa(8.6,29.6,1,'Pi',pi/4)                                                
- %Str7(n=5):[kR, Tn, Tv, Tp]=phasengangmethode_sa(16.6,41.7,1,'Pi',pi/4)
+ %Str1(n=2):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(3.08,30.8,0.5,'Pi',pi/4) 
+ %Str2(n=3):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(0.95,9,2,'Pi',pi/4) 
+ %Str3(n=3):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(1.4e-3,7.7e-3,1,'Pi',pi/4) 
+ %Str4(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(3.45e-6,15.5e-6,5,'Pi',pi/4) 
+ %Str5(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(64.8e-3,245.2e-3,0.5,'Pi',pi/4) 
+ %Str6(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(8.6,29.6,1,'Pi',pi/4)                                                
+ %Str7(n=5):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(16.6,41.7,1,'Pi',pi/4)
  
- %Str1(n=2):[kR, Tn, Tv, Tp]=phasengangmethode_sa(3.08,30.8,0.5,'Pid',pi/4) 
- %Str2(n=3):[kR, Tn, Tv, Tp]=phasengangmethode_sa(0.95,9,2,'Pid',pi/4) 
- %Str3(n=3):[kR, Tn, Tv, Tp]=phasengangmethode_sa(1.4e-3,7.7e-3,1,'Pid',pi/4) 
- %Str4(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa(3.45e-6,15.5e-6,5,'Pid',pi/4) 
- %Str5(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa(64.8e-3,245.2e-3,0.5,'Pid',pi/4) 
- %Str6(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa(8.6,29.6,1,'Pid',pi/4)                                                
- %Str7(n=5):[kR, Tn, Tv, Tp]=phasengangmethode_sa(16.6,41.7,1,'Pid',pi/4)
+ %Str1(n=2):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(3.08,30.8,0.5,'Pid',pi/4) 
+ %Str2(n=3):[kR, Tn, Tv, Tp]=phasengangmethode_sa_0.95Prozent_Ueberschw(0.95,9,2,'Pid',pi/4) 
+ %Str3(n=3):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(1.4e-3,7.7e-3,1,'Pid',pi/4) 
+ %Str4(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(3.45e-6,15.5e-6,5,'Pid',pi/4) 
+ %Str5(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(64.8e-3,245.2e-3,0.5,'Pid',pi/4) 
+ %Str6(n=4):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(8.6,29.6,1,'Pid',pi/4)                                                
+ %Str7(n=5):[kR, Tn, Tv, Tp]=phasengangmethode_sa_Prozent_Ueberschw(16.6,41.7,1,'Pid',pi/4)
 %**************************************************************************
 
 
-function[kR, Tn, Tv, Tp, kS, T] = phasengangmethode_sa(Tu,Tg,kS,typ,phir)
+function[kR, Tn, Tv, Tp, kS, T] = phasengangmethode_sa_Prozent_Ueberschw(Tu,Tg,kS,typ,phir)
 
     % Identifikation der Strecke-------------------------------------------
     [n,T]=p2_sani(Tu,Tg);           %n = Ordnung, T=Zeitkonstanten 
@@ -77,7 +77,7 @@ function[kR, Tn, Tv, Tp, kS, T] = phasengangmethode_sa(Tu,Tg,kS,typ,phir)
     Tmin=min(T(1:n));               %ermittle min von T1 bis Tn
     wmin= 1/(Tmax*10);              
     wmax= 1/(Tmin/10);
-    w = logspace(log10(wmin),log10(wmax),2048);   %w im relevanten Bereich
+    w = logspace(log10(wmin),log10(wmax),1000);   %w im relevanten Bereich
     
       
     % Übertragungsfunktion der Strecke berechnen
@@ -87,36 +87,68 @@ function[kR, Tn, Tv, Tp, kS, T] = phasengangmethode_sa(Tu,Tg,kS,typ,phir)
     end
     Gs=kS*Gs;                           %Vervollständige mit kS
     
+    gewUebSchw= 20;
+    tatUebSchw= -1;
+    addFaktor= phir/2;
+    merkerGr = 0;
+    merkerKl = 0;
+    
+    
+    n=0;
     % PI-Regler ***********************************************************
    if (strcmp(typ,'Pi'))
-       [kR, Tn, Tv, Tp] = PiRegler( Gs,w,phir,kS,T);
-       Gr=kR.*(1+1./(j.*w.*Tn));                         % Übertragusfunktion Pi-Regler
-       Gg= Gs.*Gr;                                      % Übertragungsfunnktion geschlossener Regelkreis
-       Ag= 20*log10(abs(Gg));                           % Amplitudengang[dB] geschlossener Regelkreis
-       Phig = angle(Gg);
-       [ind_left,ind_right] = int_ver(Ag,-30);          % Berechnet die beiden Indizien die  wS einschliessen
-       ws = 1/8*((w(ind_left)+w(ind_right)))            % Faktor 8 ist gut
-       N= 2^ceil(log2(ind_right));                    % N = index von ws
-
-       figure(5); subplot(211);semilogx(w,Ag);hold on;
-       subplot(212); semilogx(w,Phig);
-       
-       schrittantwort( kR, Tn, Tv, Tp, kS, T, ws, 'Pi', N);
-       
-         
+        while(addFaktor > 0.005)
+                [kR, Tn, Tv, Tp] = PiRegler(Gs,w,phir,kS,T);
+                [tatUebSchw,t,y1] = schrittantwort_Prozent_Ueberschw( kR, Tn, Tv, Tp, kS, T, w, 'Pi');
+                               
+                if(tatUebSchw > gewUebSchw)
+                    if(merkerKl==1)
+                        addFaktor = addFaktor/2;    
+                        merkerKl = 0;
+                    end
+                    phir = phir + addFaktor;
+                    merkerGr = 1;
+                end
+                if(tatUebSchw < gewUebSchw)
+                    if(merkerGr==1)
+                        addFaktor = addFaktor/2;
+                        merkerGr = 0;
+                    end
+                    phir = phir - addFaktor;
+                    merkerKl = 1;
+                end
+                n=n+1;   
+        end
    end
+   
     % PID-Regler **********************************************************
    if (strcmp(typ,'Pid'))
-       [kR, Tn, Tv, Tp] = PidRegler(Gs,w,phir,kS,T);
-       Gr=kR*(1+1./(j*w*Tn)+(j*w*Tv)./(1+j*w*Tp));        % Übertragusfunktion Pid-Regler
-       Gg= Gs.*Gr;                                      % Übertragungsfunnktion geschlossener Regelkreis
-       Ag= 20*log10(abs(Gg));                           % Amplitudengang[dB] geschlossener Regelkreis 
-       [ind_left,ind_right] = int_ver(Ag,-30);          % Berechnet die beiden Indizien die ges. wS einschliessen
-       ws = 8*((w(ind_left)+w(ind_right)))            % Faktor 8 ist gut
-       N= 2^ceil(log2(ind_right));                    % N = index von ws
-       figure(5);semilogx(w,Ag)
-       schrittantwort( kR, Tn, Tv, Tp, kS, T, ws, 'Pid', N);
+        while(addFaktor > 0.005)
+                [kR, Tn, Tv, Tp] = PidRegler(Gs,w,phir,kS,T);
+                [tatUebSchw,t,y1] = schrittantwort_Prozent_Ueberschw( kR, Tn, Tv, Tp, kS, T, w, 'Pid');
+                               
+                if(tatUebSchw > gewUebSchw)
+                    if(merkerKl==1)
+                        addFaktor = addFaktor/2;    
+                        merkerKl = 0;
+                    end
+                    phir = phir + addFaktor;
+                    merkerGr = 1;
+                end
+                if(tatUebSchw < gewUebSchw)
+                    if(merkerGr==1)
+                        addFaktor = addFaktor/2;
+                        merkerGr = 0;
+                    end
+                    phir = phir - addFaktor;
+                    merkerKl = 1;
+                end
+                n=n+1;     
+        end     
    end
+   %plot(t, y1,'red');
+   %     str = sprintf('Ueberschwingen: %0.f Prozent',tatUebSchw);
+   %     title(str);
 end
 
 
